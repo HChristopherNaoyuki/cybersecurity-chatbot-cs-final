@@ -1,4 +1,4 @@
-﻿# Cybersecurity Awareness Chatbot
+﻿# Cybersecurity Chatbot: Overview
 
 ## Table of Contents
 - [Project Overview](#project-overview)

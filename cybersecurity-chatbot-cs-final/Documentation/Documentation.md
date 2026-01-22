@@ -1,4 +1,4 @@
-﻿# Cybersecurity Chatbot - Documentation
+﻿# Cybersecurity Chatbot: Documentation
 
 ## Table of Contents
 - [Overview](#overview)
