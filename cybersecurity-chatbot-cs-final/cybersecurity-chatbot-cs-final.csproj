@@ -121,6 +121,7 @@
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <None Include="Documentation\Documentation.md" />
+    <None Include="Documentation\Overview.md" />
     <None Include="Documentation\Presentation\PROG6221-PRESENTATION-V1.pptx" />
     <None Include="Documentation\Presentation\PROG6221-PRESENTATION-V2.pptx" />
     <None Include="Properties\Settings.settings">
