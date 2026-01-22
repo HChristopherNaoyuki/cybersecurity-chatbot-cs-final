@@ -1,27 +1,44 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 
 namespace cybersecurity_chatbot_cs_final
 {
-    /// <summary>
-    /// Interaction logic for LogWindow.xaml
-    /// </summary>
     public partial class LogWindow : Window
     {
-        public LogWindow()
+        private readonly MemoryManager _memoryManager;
+
+        public LogWindow(MemoryManager memoryManager)
         {
             InitializeComponent();
+            _memoryManager = memoryManager ?? throw new ArgumentNullException(nameof(memoryManager));
+            LoadActivityLog();
+        }
+
+        private void LoadActivityLog()
+        {
+            try
+            {
+                var history = _memoryManager.GetActivityHistory();
+
+                if (history.Count == 0)
+                {
+                    LogEntries.ItemsSource = new List<string> { "No activities recorded" };
+                    return;
+                }
+
+                LogEntries.ItemsSource = history;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error loading history: {ex.Message}",
+                    "Error", MessageBoxButton.OK, MessageBoxImage.Warning);
+            }
+        }
+
+        private void Close_Click(object sender, RoutedEventArgs e)
+        {
+            Close();
         }
     }
 }
