@@ -5,8 +5,14 @@ using System.Windows;
 
 namespace cybersecurity_chatbot_cs_final
 {
+    /// <summary>
+    /// Task management window for cybersecurity tasks
+    /// </summary>
     public partial class TaskWindow : Window
     {
+        /// <summary>
+        /// Represents a cybersecurity task
+        /// </summary>
         public class CybersecurityTask
         {
             public string Title { get; set; }
@@ -14,6 +20,9 @@ namespace cybersecurity_chatbot_cs_final
             public string Status { get; set; }
             public bool IsCompleted { get; set; }
 
+            /// <summary>
+            /// Creates a new cybersecurity task with default values
+            /// </summary>
             public CybersecurityTask()
             {
                 Title = "New Task";
@@ -26,6 +35,9 @@ namespace cybersecurity_chatbot_cs_final
         private readonly List<CybersecurityTask> _tasks = new List<CybersecurityTask>();
         private readonly ChatBot _chatBot;
 
+        /// <summary>
+        /// Initializes task window
+        /// </summary>
         public TaskWindow(ChatBot chatBot)
         {
             InitializeComponent();
@@ -34,6 +46,9 @@ namespace cybersecurity_chatbot_cs_final
             TasksList.ItemsSource = _tasks;
         }
 
+        /// <summary>
+        /// Loads tasks from memory manager
+        /// </summary>
         private void LoadTasks()
         {
             try
@@ -60,6 +75,9 @@ namespace cybersecurity_chatbot_cs_final
             }
         }
 
+        /// <summary>
+        /// Handles Add Task button click
+        /// </summary>
         private void AddTask_Click(object sender, RoutedEventArgs e)
         {
             if (string.IsNullOrWhiteSpace(TaskTitle.Text))
@@ -85,6 +103,9 @@ namespace cybersecurity_chatbot_cs_final
             TaskTitle.Focus();
         }
 
+        /// <summary>
+        /// Handles Complete Task button click
+        /// </summary>
         private void CompleteTask_Click(object sender, RoutedEventArgs e)
         {
             if (TasksList.SelectedItem is CybersecurityTask task)
@@ -97,6 +118,9 @@ namespace cybersecurity_chatbot_cs_final
             }
         }
 
+        /// <summary>
+        /// Handles Delete Task button click
+        /// </summary>
         private void DeleteTask_Click(object sender, RoutedEventArgs e)
         {
             if (TasksList.SelectedItem is CybersecurityTask task)
@@ -108,11 +132,17 @@ namespace cybersecurity_chatbot_cs_final
             }
         }
 
+        /// <summary>
+        /// Handles Close button click
+        /// </summary>
         private void Close_Click(object sender, RoutedEventArgs e)
         {
             Close();
         }
 
+        /// <summary>
+        /// Refreshes task list display
+        /// </summary>
         private void RefreshTaskList()
         {
             var incompleteTasks = _tasks.Where(t => !t.IsCompleted).ToList();

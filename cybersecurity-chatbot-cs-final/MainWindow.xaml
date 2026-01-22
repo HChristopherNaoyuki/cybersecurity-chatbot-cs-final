@@ -6,15 +6,14 @@
         Height="700" 
         Width="900"
         MinHeight="500" 
-        MinWidth="700">
+        MinWidth="700"
+        Background="#F5F5F7">
 
     <Window.Resources>
+        <!-- Converter instances -->
         <local:MessageBackgroundConverter x:Key="MessageBackgroundConverter"/>
         <local:MessageForegroundConverter x:Key="MessageForegroundConverter"/>
-
-        <Style TargetType="Border">
-            <Setter Property="CornerRadius" Value="8"/>
-        </Style>
+        <local:MessageAlignmentConverter x:Key="MessageAlignmentConverter"/>
     </Window.Resources>
 
     <Grid Background="#F5F5F7">
@@ -24,6 +23,7 @@
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
+        <!-- ASCII Art Header -->
         <TextBlock x:Name="AsciiArtBox" 
                    Grid.Row="0"
                    TextWrapping="Wrap" 
@@ -34,12 +34,12 @@
                    TextAlignment="Center"
                    Foreground="#1D1D1F"/>
 
+        <!-- Chat History Display -->
         <Border Grid.Row="1" 
                 Margin="10" 
                 Background="#FFFFFF"
                 BorderBrush="#D1D1D6"
-                BorderThickness="1"
-                CornerRadius="8">
+                BorderThickness="1">
             <ListView x:Name="ChatHistory" 
                       Background="Transparent"
                       BorderThickness="0"
@@ -59,9 +59,8 @@
                     <DataTemplate>
                         <Grid Margin="0,2">
                             <Border Background="{Binding IsUserMessage, Converter={StaticResource MessageBackgroundConverter}}"
-                                    CornerRadius="12" 
                                     Padding="12,8"
-                                    HorizontalAlignment="{Binding IsUserMessage, Converter={StaticResource local:MessageAlignmentConverter}}"
+                                    HorizontalAlignment="{Binding IsUserMessage, Converter={StaticResource MessageAlignmentConverter}}"
                                     MaxWidth="500">
 
                                 <TextBlock Text="{Binding Text}" 
@@ -75,6 +74,7 @@
             </ListView>
         </Border>
 
+        <!-- Input Area -->
         <Border Grid.Row="2" 
                 Background="#FFFFFF"
                 BorderBrush="#D1D1D6"
@@ -85,31 +85,27 @@
                     <ColumnDefinition Width="Auto"/>
                 </Grid.ColumnDefinitions>
 
+                <!-- Input TextBox -->
                 <TextBox x:Name="UserInput" 
                          Grid.Column="0"
                          Height="44"
                          VerticalContentAlignment="Center"
                          FontSize="14"
                          KeyDown="UserInput_KeyDown"
-                         Padding="12"
-                         BorderBrush="#C7C7CC"
-                         BorderThickness="1"
-                         CornerRadius="6"/>
+                         Padding="12"/>
 
+                <!-- Send Button -->
                 <Button x:Name="SendButton" 
                         Grid.Column="1" 
                         Content="Send" 
                         Width="80" 
                         Height="44" 
                         Margin="8,0,0,0"
-                        Click="SendButton_Click"
-                        Background="#007AFF"
-                        Foreground="#FFFFFF"
-                        BorderThickness="0"
-                        CornerRadius="6"/>
+                        Click="SendButton_Click"/>
             </Grid>
         </Border>
 
+        <!-- Feature Buttons -->
         <StackPanel Grid.Row="2" 
                     Orientation="Horizontal" 
                     HorizontalAlignment="Left"
@@ -119,22 +115,16 @@
             <Button Content="Tasks" 
                     Width="70" 
                     Margin="0,0,5,0"
-                    Click="TasksButton_Click"
-                    Background="Transparent"
-                    BorderThickness="0"/>
+                    Click="TasksButton_Click"/>
 
             <Button Content="Quiz" 
                     Width="70" 
                     Margin="0,0,5,0"
-                    Click="QuizButton_Click"
-                    Background="Transparent"
-                    BorderThickness="0"/>
+                    Click="QuizButton_Click"/>
 
             <Button Content="History" 
                     Width="70"
-                    Click="HistoryButton_Click"
-                    Background="Transparent"
-                    BorderThickness="0"/>
+                    Click="HistoryButton_Click"/>
         </StackPanel>
     </Grid>
 </Window>

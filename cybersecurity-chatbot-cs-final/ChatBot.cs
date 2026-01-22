@@ -1,7 +1,11 @@
 ﻿using System;
+using System.Windows;
 
 namespace cybersecurity_chatbot_cs_final
 {
+    /// <summary>
+    /// Main chatbot controller coordinating all components
+    /// </summary>
     public class ChatBot
     {
         private readonly MainWindow _mainWindow;
@@ -10,6 +14,10 @@ namespace cybersecurity_chatbot_cs_final
         private readonly ConversationManager _conversationManager;
         private readonly MemoryManager _memoryManager;
 
+        /// <summary>
+        /// Initializes a new ChatBot instance
+        /// </summary>
+        /// <param name="mainWindow">Reference to main application window</param>
         public ChatBot(MainWindow mainWindow)
         {
             _mainWindow = mainWindow ?? throw new ArgumentNullException(nameof(mainWindow));
@@ -20,8 +28,17 @@ namespace cybersecurity_chatbot_cs_final
             _conversationManager = new ConversationManager(_knowledgeBase, _memoryManager, _ui);
         }
 
-        public MemoryManager MemoryManager => _memoryManager;
+        /// <summary>
+        /// Gets the memory manager instance
+        /// </summary>
+        public MemoryManager MemoryManager
+        {
+            get { return _memoryManager; }
+        }
 
+        /// <summary>
+        /// Starts the chatbot session
+        /// </summary>
         public void Run()
         {
             try
@@ -39,6 +56,10 @@ namespace cybersecurity_chatbot_cs_final
             }
         }
 
+        /// <summary>
+        /// Processes user input and generates responses
+        /// </summary>
+        /// <param name="input">User input text</param>
         public void ProcessInput(string input)
         {
             try
@@ -48,7 +69,7 @@ namespace cybersecurity_chatbot_cs_final
                 if (response == "COMMAND_EXIT")
                 {
                     _mainWindow.AddMessage("Goodbye. Stay safe online.", false);
-                    Application.Current.Shutdown();
+                    System.Windows.Application.Current.Shutdown();
                     return;
                 }
 
