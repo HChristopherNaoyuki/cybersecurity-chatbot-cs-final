@@ -13,8 +13,13 @@
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
-        <TextBlock Grid.Row="0" Text="Recent Activities" FontWeight="SemiBold" Margin="0,0,0,10"/>
+        <!-- Header -->
+        <TextBlock Grid.Row="0" 
+                   Text="Recent Activities" 
+                   FontWeight="SemiBold" 
+                   Margin="0,0,0,10"/>
 
+        <!-- Log Entries -->
         <ListView x:Name="LogEntries" Grid.Row="1">
             <ListView.View>
                 <GridView>
@@ -24,6 +29,11 @@
             </ListView.View>
         </ListView>
 
-        <Button Grid.Row="2" Content="Close" Width="80" HorizontalAlignment="Right" Click="Close_Click"/>
+        <!-- Close Button -->
+        <Button Grid.Row="2" 
+                Content="Close" 
+                Width="80" 
+                HorizontalAlignment="Right" 
+                Click="Close_Click"/>
     </Grid>
 </Window>

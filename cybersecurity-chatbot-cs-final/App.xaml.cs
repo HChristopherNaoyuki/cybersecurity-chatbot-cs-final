@@ -1,15 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Configuration;
+﻿using System.Configuration;
 using System.Data;
-using System.Linq;
-using System.Threading.Tasks;
 using System.Windows;
 
 namespace cybersecurity_chatbot_cs_final
 {
     /// <summary>
-    /// Interaction logic for App.xaml
+    /// Application entry point
     /// </summary>
     public partial class App : Application
     {

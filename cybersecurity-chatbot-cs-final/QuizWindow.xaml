@@ -13,6 +13,7 @@
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
+        <!-- Quiz Info -->
         <StackPanel Grid.Row="0" 
                     Orientation="Horizontal" 
                     HorizontalAlignment="Center" 
@@ -21,11 +22,11 @@
             <TextBlock x:Name="ScoreText" FontWeight="SemiBold"/>
         </StackPanel>
 
+        <!-- Question and Answers -->
         <Border Grid.Row="1" 
                 Background="#FFFFFF"
                 BorderBrush="#D1D1D6"
                 BorderThickness="1"
-                CornerRadius="8"
                 Padding="20">
 
             <StackPanel>
@@ -48,6 +49,7 @@
             </StackPanel>
         </Border>
 
+        <!-- Navigation Buttons -->
         <StackPanel Grid.Row="2" 
                     Orientation="Horizontal" 
                     HorizontalAlignment="Right"

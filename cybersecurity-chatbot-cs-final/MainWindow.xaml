@@ -10,7 +10,7 @@
         Background="#F5F5F7">
 
     <Window.Resources>
-        <!-- Converter instances -->
+        <!-- Converters must be defined here or in App.xaml -->
         <local:MessageBackgroundConverter x:Key="MessageBackgroundConverter"/>
         <local:MessageForegroundConverter x:Key="MessageForegroundConverter"/>
         <local:MessageAlignmentConverter x:Key="MessageAlignmentConverter"/>

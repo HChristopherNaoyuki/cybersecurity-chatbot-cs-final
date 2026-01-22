@@ -5,6 +5,9 @@ using System.Windows.Controls;
 
 namespace cybersecurity_chatbot_cs_final
 {
+    /// <summary>
+    /// Window for cybersecurity quiz functionality
+    /// </summary>
     public partial class QuizWindow : Window
     {
         private readonly List<QuizQuestion> _questions = new List<QuizQuestion>();
@@ -13,6 +16,10 @@ namespace cybersecurity_chatbot_cs_final
         private int _score = 0;
         private QuizAnswer _selectedAnswer = null;
 
+        /// <summary>
+        /// Initializes quiz window
+        /// </summary>
+        /// <param name="chatBot">Chatbot instance</param>
         public QuizWindow(ChatBot chatBot)
         {
             InitializeComponent();
@@ -36,10 +43,14 @@ namespace cybersecurity_chatbot_cs_final
             }
         }
 
+        /// <summary>
+        /// Loads cybersecurity quiz questions
+        /// </summary>
         private List<QuizQuestion> LoadQuizQuestions()
         {
             return new List<QuizQuestion>
             {
+                // Question 1
                 new QuizQuestion(
                     "What should you do if you receive an email asking for your password?",
                     new List<QuizAnswer>
@@ -50,7 +61,8 @@ namespace cybersecurity_chatbot_cs_final
                         new QuizAnswer("Ignore it", false)
                     },
                     "Legitimate organizations never ask for passwords via email."),
-
+                
+                // Question 2
                 new QuizQuestion(
                     "Which password is strongest?",
                     new List<QuizAnswer>
@@ -62,6 +74,7 @@ namespace cybersecurity_chatbot_cs_final
                     },
                     "Long passphrases are more secure than complex short passwords."),
 
+                // Question 3
                 new QuizQuestion(
                     "What does HTTPS indicate?",
                     new List<QuizAnswer>
@@ -73,6 +86,7 @@ namespace cybersecurity_chatbot_cs_final
                     },
                     "HTTPS ensures encrypted connections."),
 
+                // Question 4
                 new QuizQuestion(
                     "What is two-factor authentication?",
                     new List<QuizAnswer>
@@ -84,6 +98,7 @@ namespace cybersecurity_chatbot_cs_final
                     },
                     "2FA requires password plus device verification."),
 
+                // Question 5
                 new QuizQuestion(
                     "What should you do before public WiFi?",
                     new List<QuizAnswer>
@@ -95,6 +110,7 @@ namespace cybersecurity_chatbot_cs_final
                     },
                     "Disable file sharing to prevent unauthorized access."),
 
+                // Question 6
                 new QuizQuestion(
                     "How often update software?",
                     new List<QuizAnswer>
@@ -106,6 +122,7 @@ namespace cybersecurity_chatbot_cs_final
                     },
                     "Updates include critical security patches."),
 
+                // Question 7
                 new QuizQuestion(
                     "Common phishing sign?",
                     new List<QuizAnswer>
@@ -117,6 +134,7 @@ namespace cybersecurity_chatbot_cs_final
                     },
                     "Phishing sites often have spelling errors."),
 
+                // Question 8
                 new QuizQuestion(
                     "Never share on social media?",
                     new List<QuizAnswer>
@@ -128,6 +146,7 @@ namespace cybersecurity_chatbot_cs_final
                     },
                     "Personal details answer security questions."),
 
+                // Question 9
                 new QuizQuestion(
                     "What is malware?",
                     new List<QuizAnswer>
@@ -139,6 +158,7 @@ namespace cybersecurity_chatbot_cs_final
                     },
                     "Malware includes viruses, spyware, ransomware."),
 
+                // Question 10
                 new QuizQuestion(
                     "Why log out of accounts?",
                     new List<QuizAnswer>
@@ -152,6 +172,9 @@ namespace cybersecurity_chatbot_cs_final
             };
         }
 
+        /// <summary>
+        /// Displays current question
+        /// </summary>
         private void DisplayQuestion()
         {
             if (_currentQuestionIndex < 0 || _currentQuestionIndex >= _questions.Count)
@@ -171,6 +194,9 @@ namespace cybersecurity_chatbot_cs_final
             NextButton.Content = _currentQuestionIndex < _questions.Count - 1 ? "Next" : "Finish";
         }
 
+        /// <summary>
+        /// Handles answer selection
+        /// </summary>
         private void Answer_Checked(object sender, RoutedEventArgs e)
         {
             if (sender is RadioButton radioButton && radioButton.DataContext is QuizAnswer answer)
@@ -187,6 +213,9 @@ namespace cybersecurity_chatbot_cs_final
             }
         }
 
+        /// <summary>
+        /// Handles Next button click
+        /// </summary>
         private void NextButton_Click(object sender, RoutedEventArgs e)
         {
             if (_currentQuestionIndex < _questions.Count - 1)
@@ -200,6 +229,9 @@ namespace cybersecurity_chatbot_cs_final
             }
         }
 
+        /// <summary>
+        /// Finishes quiz and shows results
+        /// </summary>
         private void FinishQuiz()
         {
             string performance = GetPerformanceRating();
@@ -214,6 +246,9 @@ namespace cybersecurity_chatbot_cs_final
             Close();
         }
 
+        /// <summary>
+        /// Handles Previous button click
+        /// </summary>
         private void PrevButton_Click(object sender, RoutedEventArgs e)
         {
             if (_currentQuestionIndex > 0)
@@ -223,11 +258,17 @@ namespace cybersecurity_chatbot_cs_final
             }
         }
 
+        /// <summary>
+        /// Handles Close button click
+        /// </summary>
         private void Close_Click(object sender, RoutedEventArgs e)
         {
             Close();
         }
 
+        /// <summary>
+        /// Gets performance rating based on score
+        /// </summary>
         private string GetPerformanceRating()
         {
             double percentage = (double)_score / _questions.Count;
@@ -238,6 +279,9 @@ namespace cybersecurity_chatbot_cs_final
             return "Review basics.";
         }
 
+        /// <summary>
+        /// Represents a quiz question
+        /// </summary>
         private class QuizQuestion
         {
             public string Text { get; }
@@ -252,6 +296,9 @@ namespace cybersecurity_chatbot_cs_final
             }
         }
 
+        /// <summary>
+        /// Represents a quiz answer
+        /// </summary>
         private class QuizAnswer
         {
             public string Text { get; }

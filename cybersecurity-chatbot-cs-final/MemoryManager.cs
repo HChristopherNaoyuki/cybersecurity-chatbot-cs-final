@@ -5,6 +5,9 @@ using System.Linq;
 
 namespace cybersecurity_chatbot_cs_final
 {
+    /// <summary>
+    /// Handles user-specific data storage including tasks, history, and keywords
+    /// </summary>
     public class MemoryManager
     {
         private const string UserDataDirectory = "UserData";
@@ -17,9 +20,12 @@ namespace cybersecurity_chatbot_cs_final
         private readonly Dictionary<string, int> _keywordCounts = new Dictionary<string, int>();
         private string _userName = "User";
 
+        /// <summary>
+        /// Gets or sets the user name
+        /// </summary>
         public string UserName
         {
-            get => _userName;
+            get { return _userName; }
             set
             {
                 if (string.IsNullOrWhiteSpace(value))
@@ -37,6 +43,9 @@ namespace cybersecurity_chatbot_cs_final
             }
         }
 
+        /// <summary>
+        /// Initializes memory manager and loads existing data
+        /// </summary>
         public MemoryManager()
         {
             Directory.CreateDirectory(UserDataDirectory);
@@ -44,29 +53,53 @@ namespace cybersecurity_chatbot_cs_final
             LogActivity("System initialized");
         }
 
+        /// <summary>
+        /// Records a keyword and increments its count
+        /// </summary>
+        /// <param name="keyword">Keyword to remember</param>
         public void RememberKeyword(string keyword)
         {
             if (string.IsNullOrWhiteSpace(keyword)) return;
 
             string normalized = NormalizeKeyword(keyword);
 
-            _keywordCounts[normalized] = _keywordCounts.TryGetValue(normalized, out int count)
-                ? count + 1
-                : 1;
+            if (_keywordCounts.ContainsKey(normalized))
+            {
+                _keywordCounts[normalized]++;
+            }
+            else
+            {
+                _keywordCounts[normalized] = 1;
+            }
 
             LogActivity($"Discussed topic: {normalized}");
             SaveUserData();
         }
 
+        /// <summary>
+        /// Gets discussion count for a keyword
+        /// </summary>
+        /// <param name="keyword">Keyword to check</param>
+        /// <returns>Discussion count</returns>
         public int GetKeywordCount(string keyword)
         {
-            return string.IsNullOrWhiteSpace(keyword)
-                ? 0
-                : _keywordCounts.TryGetValue(NormalizeKeyword(keyword), out int count)
-                    ? count
-                    : 0;
+            if (string.IsNullOrWhiteSpace(keyword))
+            {
+                return 0;
+            }
+
+            string normalized = NormalizeKeyword(keyword);
+            if (_keywordCounts.TryGetValue(normalized, out int count))
+            {
+                return count;
+            }
+            return 0;
         }
 
+        /// <summary>
+        /// Adds a new task to memory
+        /// </summary>
+        /// <param name="task">Task description</param>
         public void AddTask(string task)
         {
             if (!string.IsNullOrWhiteSpace(task))
@@ -77,6 +110,10 @@ namespace cybersecurity_chatbot_cs_final
             }
         }
 
+        /// <summary>
+        /// Removes a task from memory
+        /// </summary>
+        /// <param name="task">Task description</param>
         public void RemoveTask(string task)
         {
             if (_tasks.Remove(task))
@@ -86,11 +123,19 @@ namespace cybersecurity_chatbot_cs_final
             }
         }
 
+        /// <summary>
+        /// Gets all stored tasks
+        /// </summary>
+        /// <returns>List of tasks</returns>
         public List<string> GetTasks()
         {
             return new List<string>(_tasks);
         }
 
+        /// <summary>
+        /// Logs an activity with timestamp
+        /// </summary>
+        /// <param name="activity">Activity description</param>
         public void LogActivity(string activity)
         {
             if (string.IsNullOrWhiteSpace(activity)) return;
@@ -106,36 +151,60 @@ namespace cybersecurity_chatbot_cs_final
             SaveUserData();
         }
 
+        /// <summary>
+        /// Gets the activity history
+        /// </summary>
+        /// <returns>List of activity entries</returns>
         public List<string> GetActivityHistory()
         {
             return new List<string>(_history);
         }
 
+        #region Private Methods
+
+        /// <summary>
+        /// Normalizes a keyword for consistent storage
+        /// </summary>
         private string NormalizeKeyword(string keyword)
         {
             return keyword?.ToLower().Trim() ?? string.Empty;
         }
 
+        /// <summary>
+        /// Gets user-specific folder path
+        /// </summary>
         private string GetUserFolderPath()
         {
             return Path.Combine(UserDataDirectory, _userName);
         }
 
+        /// <summary>
+        /// Gets history file path
+        /// </summary>
         private string GetHistoryFilePath()
         {
             return Path.Combine(GetUserFolderPath(), HistoryFileName);
         }
 
+        /// <summary>
+        /// Gets tasks file path
+        /// </summary>
         private string GetTasksFilePath()
         {
             return Path.Combine(GetUserFolderPath(), TasksFileName);
         }
 
+        /// <summary>
+        /// Gets keywords file path
+        /// </summary>
         private string GetKeywordsFilePath()
         {
             return Path.Combine(GetUserFolderPath(), KeywordsFileName);
         }
 
+        /// <summary>
+        /// Loads user data from files
+        /// </summary>
         private void LoadUserData()
         {
             try
@@ -177,6 +246,9 @@ namespace cybersecurity_chatbot_cs_final
             }
         }
 
+        /// <summary>
+        /// Saves user data to files
+        /// </summary>
         private void SaveUserData()
         {
             try
@@ -195,5 +267,7 @@ namespace cybersecurity_chatbot_cs_final
                 LogActivity($"Error saving user data: {ex.Message}");
             }
         }
+
+        #endregion
     }
 }

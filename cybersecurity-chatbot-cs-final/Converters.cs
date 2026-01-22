@@ -2,6 +2,7 @@
 using System.Globalization;
 using System.Windows.Data;
 using System.Windows.Media;
+using System.Windows;
 
 namespace cybersecurity_chatbot_cs_final
 {
@@ -10,6 +11,7 @@ namespace cybersecurity_chatbot_cs_final
     /// - User messages: Light blue
     /// - Bot messages: Light gray
     /// </summary>
+    [ValueConversion(typeof(bool), typeof(Brush))]
     public class MessageBackgroundConverter : IValueConverter
     {
         /// <summary>
@@ -21,14 +23,15 @@ namespace cybersecurity_chatbot_cs_final
             {
                 if (isUserMessage)
                 {
-                    return new SolidColorBrush(Color.FromArgb(255, 220, 240, 255)); // Light blue for user
+                    // Light blue for user messages
+                    return new SolidColorBrush(Color.FromArgb(255, 220, 240, 255));
                 }
                 else
                 {
-                    return new SolidColorBrush(Color.FromArgb(255, 245, 245, 245)); // Light gray for bot
+                    // Light gray for bot messages
+                    return new SolidColorBrush(Color.FromArgb(255, 245, 245, 245));
                 }
             }
-
             return Brushes.White;
         }
 
@@ -44,6 +47,7 @@ namespace cybersecurity_chatbot_cs_final
     /// <summary>
     /// Converts message type to text color (always black)
     /// </summary>
+    [ValueConversion(typeof(bool), typeof(Brush))]
     public class MessageForegroundConverter : IValueConverter
     {
         /// <summary>
@@ -68,6 +72,7 @@ namespace cybersecurity_chatbot_cs_final
     /// - User messages: Right aligned
     /// - Bot messages: Left aligned
     /// </summary>
+    [ValueConversion(typeof(bool), typeof(HorizontalAlignment))]
     public class MessageAlignmentConverter : IValueConverter
     {
         /// <summary>
@@ -77,17 +82,9 @@ namespace cybersecurity_chatbot_cs_final
         {
             if (value is bool isUserMessage)
             {
-                if (isUserMessage)
-                {
-                    return System.Windows.HorizontalAlignment.Right;
-                }
-                else
-                {
-                    return System.Windows.HorizontalAlignment.Left;
-                }
+                return isUserMessage ? HorizontalAlignment.Right : HorizontalAlignment.Left;
             }
-
-            return System.Windows.HorizontalAlignment.Left;
+            return HorizontalAlignment.Left;
         }
 
         /// <summary>
